@@ -1,6 +1,7 @@
 'use strict';
 
 let React = require('react-native');
+let {InteractionManager} = React;
 let ScrollableMixin = require('react-native-scrollable-mixin');
 let {
   PropTypes,
@@ -108,7 +109,9 @@ class InfiniteScrollView extends React.Component {
       this.props.onLoadError && this.props.onLoadError(e);
       this.setState({isDisplayingError: true});
     } finally {
-      this.setState({isLoading: false});
+      InteractionManager.runAfterInteractions() {
+        this.setState({isLoading: false});
+      });
     }
   }
 
