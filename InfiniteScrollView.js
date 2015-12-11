@@ -109,7 +109,7 @@ class InfiniteScrollView extends React.Component {
       this.props.onLoadError && this.props.onLoadError(e);
       this.setState({isDisplayingError: true});
     } finally {
-      InteractionManager.runAfterInteractions() {
+      InteractionManager.runAfterInteractions(() => {
         this.setState({isLoading: false});
       });
     }
