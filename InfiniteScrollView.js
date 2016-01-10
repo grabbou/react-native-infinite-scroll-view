@@ -9,7 +9,6 @@ let {
   View,
 } = React;
 
-let autobind = require('autobind-decorator');
 let cloneReferencedElement = require('react-native-clone-referenced-element');
 
 let DefaultLoadingIndicator = require('./DefaultLoadingIndicator');
@@ -56,7 +55,7 @@ class InfiniteScrollView extends React.Component {
     if (this.state.isDisplayingError) {
       statusIndicator = React.cloneElement(
         this.props.renderLoadingErrorIndicator(
-          { onRetryLoadMore: this._onLoadMoreAsync }
+          { onRetryLoadMore: this._onLoadMoreAsync.bind(this) }
          ),
         { key: 'loading-error-indicator' },
       );
@@ -71,6 +70,7 @@ class InfiniteScrollView extends React.Component {
       renderScrollComponent,
       ...props,
     } = this.props;
+    
     Object.assign(props, {
       onScroll: this._handleScroll.bind(this),
       children: [this.props.children, statusIndicator],
@@ -96,7 +96,6 @@ class InfiniteScrollView extends React.Component {
     }
   }
 
-  @autobind
   async _onLoadMoreAsync() {
     if (this.state.isLoading && __DEV__) {
       throw new Error('_onLoadMoreAsync called while isLoading is true');
@@ -118,7 +117,7 @@ class InfiniteScrollView extends React.Component {
 
   _distanceFromEnd(event): number {
     let {
-      contentSize,
+      content_Size,
       contentInset,
       contentOffset,
       layoutMeasurement,
