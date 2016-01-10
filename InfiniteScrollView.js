@@ -117,7 +117,7 @@ class InfiniteScrollView extends React.Component {
 
   _distanceFromEnd(event): number {
     let {
-      content_Size,
+      contentSize,
       contentInset,
       contentOffset,
       layoutMeasurement,
